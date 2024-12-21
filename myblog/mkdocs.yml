@@ -1,11 +1,11 @@
-site_name: Sad
+site_name: 寂
 nav:
 - 算法竞赛 :
     - 模板整理 :
       - 欧拉回路相关问题: algorithm/欧拉回路相关问题.md
     - 训练记录 : algorithm/train.md
 
-- About: about.md
+
 theme:
   name: material
 markdown_extensions:

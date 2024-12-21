@@ -1,19 +1,13 @@
-# Welcome to MkDocs
+# 博客简介
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+萌新练习向博客。
 
-I like Sadbo1!
+更新算法竞赛和CS专业相关内容。
 
-## Commands
+博客仅作记录使用，不带教程性质。
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+洛谷主页：[ji_114514](https://www.luogu.com.cn/user/1112214)
 
-## Project layout
+codeforce主页：[ji_114514](https://codeforces.com/profile/ji_114514)
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+牛客主页：[Sadbo0](https://ac.nowcoder.com/acm/contest/profile/827833519) 
