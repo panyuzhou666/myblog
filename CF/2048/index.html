@@ -829,7 +829,7 @@
 <h2 id="d">D</h2>
 <p>我们先为每个题目定义一个价值：当题目能被 1 号解决时，价值为 0 ，否则定义为能解决这道题目的人数。
 这个价值可以双指针求出。设从小到大排序后第i个题目价值为 <span class="arithmatex">\(val[i]\)</span>。</p>
-<p>当每场比赛题目数为 k，可以确定一定是从小到大选不断地选 <span class="arithmatex">\(k\)</span> 个题目作为一场比赛，并且该处比赛排名为所选题目最大价值加一，也就是说答案为 <span class="arithmatex">\(\sum_{i=1}^{\lfloor m/k \rfloor}(val[ik]+1)\)</span>。</p>
+<p>当每场比赛题目数为 <span class="arithmatex">\(k\)</span>，可以确定一定是从小到大选不断地选 <span class="arithmatex">\(k\)</span> 个题目作为一场比赛，并且该处比赛排名为所选题目最大价值加一，也就是说答案为 <span class="arithmatex">\(\sum_{i=1}^{\lfloor m/k \rfloor}(val[ik]+1)\)</span>。</p>
 <p>直接暴力枚举即可，时间复杂度为调和级数 <span class="arithmatex">\(O(nlnn)\)</span>。</p>
 <details>
 <summary>代码</summary>
