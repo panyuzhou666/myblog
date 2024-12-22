@@ -588,7 +588,7 @@
 <p>考虑第 <span class="arithmatex">\(n\)</span> 行的生成函数 <span class="arithmatex">\(F_n(x)=\sum_{k=1-n}^{n-1}f(n,k)x^{k}\)</span> 。</p>
 <p>之后花了很久推导生成函数，但总是存在一点问题，可能我在边界的处理上还不够精细。放弃无脑地推导，我选择了有脑地思考组合意义。发现好像很简单？？？</p>
 <p>考虑从大到小去放置 <span class="arithmatex">\(n\)</span> 个数，发现放在中间不会影响差值。而放在开头和结尾又分别会让差值 <span class="arithmatex">\(+1\)</span> 和 <span class="arithmatex">\(-1\)</span> 。同时注意放下第一个数也不会有影响。</p>
-<p>于是：当 <span class="arithmatex">\(n&gt;2\)</span> 时，<span class="arithmatex">\(F_n(x)=\prod_{i=2}^{n}(x+\frac{1}{x}+i-2)\)</span>。</p>
+<p>于是：当 <span class="arithmatex">\(n&gt;1\)</span> 时，<span class="arithmatex">\(F_n(x)=\prod_{i=2}^{n}(x+\frac{1}{x}+i-2)\)</span>。</p>
 <p>计算上面这个生成函数可以分治<em>NTT</em>，或者是启发式合并。时间复杂度均为 <span class="arithmatex">\(O(nlog^2n)\)</span> 。</p>
 <details>
 <summary>代码</summary>
