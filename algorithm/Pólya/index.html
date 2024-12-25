@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="../%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../../CF/2048/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
-        <title>寂</title>
+        <title>Pólya定理 - 寂</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,7 +48,7 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#polya" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -79,7 +88,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="寂" class="md-header__button md-logo" aria-label="寂" data-md-component="logo">
+    <a href="../.." title="寂" class="md-header__button md-logo" aria-label="寂" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -99,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Pólya定理
             
           </span>
         </div>
@@ -199,17 +208,21 @@
         
   
   
+    
+  
   
     
     
       
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/algorithm/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="md-tabs__link">
           
   
   算法竞赛
@@ -245,7 +258,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="寂" class="md-nav__button md-logo" aria-label="寂" data-md-component="logo">
+    <a href="../.." title="寂" class="md-nav__button md-logo" aria-label="寂" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -260,25 +273,28 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -289,7 +305,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             算法竞赛
@@ -300,8 +316,10 @@
                 
   
   
+    
   
   
+  
     
     
     
@@ -309,13 +327,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" checked>
         
           
           <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
@@ -329,7 +345,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1_1">
             <span class="md-nav__icon md-icon"></span>
             模板整理
@@ -343,7 +359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/algorithm/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="md-nav__link">
+      <a href="../%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -361,10 +377,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/algorithm/P%C3%B3lya/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Pólya定理
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -373,6 +409,107 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换群
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      着色集
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      着色等价
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#burnside" class="md-nav__link">
+    <span class="md-ellipsis">
+      Burnside定理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换指标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些常见置换群的轮换指标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polya_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pólya定理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      题单
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -433,7 +570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/CF/2048/" class="md-nav__link">
+      <a href="../../CF/2048/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -454,7 +591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/CF/2049/" class="md-nav__link">
+      <a href="../../CF/2049/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -475,7 +612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ABC/abc385/" class="md-nav__link">
+      <a href="../../ABC/abc385/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -521,6 +658,97 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换群
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      着色集
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      着色等价
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#burnside" class="md-nav__link">
+    <span class="md-ellipsis">
+      Burnside定理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换指标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些常见置换群的轮换指标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polya_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pólya定理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      题单
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -532,8 +760,71 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+<h1 id="polya">Pólya定理</h1>
+<p>Pólya定理用于在对称情形下计算不等价着色的技术。</p>
+<p>这部分内容对初学者非常不友好，定义多且乱，但是理解后能对前人的工作肃然起敬。</p>
+<p>此博客旨在帮助我快速理解其中的重点内容，其中部分定义可能阐述的不够严谨。</p>
+<h2 id="_1">置换群</h2>
+<p>若干置换构成的非空集合 <span class="arithmatex">\(G\)</span> 和复合运算 <span class="arithmatex">\(\circ\)</span> 满足封闭性，单位元，逆元则成为置换群。</p>
+<h2 id="_2">着色集</h2>
+<p>不考虑等价的所有可能的染色方案构成的集合，用 <span class="arithmatex">\(C\)</span> 表示。</p>
+<h2 id="_3">着色等价</h2>
+<p>称 <span class="arithmatex">\(C\)</span> 中 2 个元素 <span class="arithmatex">\(c_1\)</span> ，<span class="arithmatex">\(c_2\)</span> 等价当且仅当存在一个 <span class="arithmatex">\(f\in G\)</span> ，使得 <span class="arithmatex">\(f*c_1=c_2\)</span> 。由 <span class="arithmatex">\(G\)</span> 是置换群的条件可以着色等价是一种等价关系，
+通常情况我们需要统计的就是这种等价关系下的等价类个数，比如本质不同的环染色方案。</p>
+<h2 id="burnside">Burnside定理</h2>
+<p>设有限群 <span class="arithmatex">\(G\)</span> 作用在有限着色集 <span class="arithmatex">\(C\)</span> 上，则等价类个数 <span class="arithmatex">\(N(G,C)\)</span> 为：</p>
+<div class="arithmatex">\[N(G,C)=\frac{1}{|G|}\sum_{f\in G}\psi(f)\]</div>
+<p>其中 <span class="arithmatex">\(\psi(f)\)</span> 表示 <span class="arithmatex">\(f(c)=c\)</span> 的 着色 <span class="arithmatex">\(c\)</span> 的个数。</p>
+<h2 id="_4">轮换指标</h2>
+<p>对于一个置换，考虑一张 <span class="arithmatex">\(n\)</span> 个结点的图，并且对于每个 <span class="arithmatex">\(i\)</span> ，都在图中连一条 <span class="arithmatex">\(i&rarr; p_i\)</span>的有向图。那么整张图会是个有向环森林。
+因为每个点的入度和出度恰为 1，我们用 <span class="arithmatex">\(b_i\)</span> 表示图中长度为 <span class="arithmatex">\(i\)</span> 的环的个数。</p>
+<p>设 <span class="arithmatex">\((G,\circ)\)</span> 是一个 <span class="arithmatex">\(n\)</span> 元置换的置换群，则它的轮换指标定义为：</p>
+<div class="arithmatex">\[P_G(x_1,...,x_n)=\frac{1}{|G|}\sum_{f\in G}x_1^{b_1}...x_n^{b_n}\]</div>
+<h2 id="_5">一些常见置换群的轮换指标</h2>
+<p><strong>此处 <span class="arithmatex">\(\psi(x)\)</span> 表示欧拉函数。</strong></p>
+<ul>
+<li>正 <span class="arithmatex">\(n\)</span> 边形的旋转群：<span class="arithmatex">\(P_G(x_1,...,x_n)=\frac{1}{n}\sum_{d|n}\psi(d)x_d^{n/d}\)</span></li>
+<li>正 <span class="arithmatex">\(n\)</span> 边形的旋转群(允许对折)：<span class="arithmatex">\(P_G(x_1,...,x_n)=\frac{1}{2n}\sum_{d|n}\psi(d)x_d^{n/d}+\begin{cases} 
+\frac{1}{2}x_1x_2^{(n-1)/2} &amp; n为奇数  \\
+\frac{1}{4}(x_1^2x_2^{(n-2)/2}+x_2^{n/2})&amp; n为偶数
+\end{cases}\)</span></li>
+<li>正方体的顶点置换群：<span class="arithmatex">\(P_G=\frac{1}{24}(x_1^8+8x_1^2x_3^2+9x_2^4+6x_4^2)\)</span></li>
+<li>正方体的边置换群：<span class="arithmatex">\(P_G=\frac{1}{24}(x_1^{12}+8x_3^4+6x_1x_2^5+3x_2^6+6x_4^3)\)</span></li>
+<li>正方体的面置换群：<span class="arithmatex">\(P_G=\frac{1}{24}(x_1^6+8x_3^2+6x_2^3+3x_1^2x_2^2+6x_1^2x_4)\)</span></li>
+</ul>
+<h2 id="polya_1">Pólya定理</h2>
+<p>先给出一些基本定义：</p>
+<ul>
+<li>颜色 <span class="arithmatex">\(c\)</span> 的权值：<span class="arithmatex">\(w(c)\)</span> 。</li>
+<li>染色方案 <span class="arithmatex">\(x\)</span> 的权值：<span class="arithmatex">\(w(x):=\prod_{i=1}^{i=n}w(c_i)\)</span> 。</li>
+<li>染色等价类 <span class="arithmatex">\(F\)</span> 的权值：<span class="arithmatex">\(w(F):=w(x)\)</span> ，任选 <span class="arithmatex">\(x\in F\)</span>。</li>
+</ul>
+<p>则 <span class="arithmatex">\(\sum_{F}w(F)=P_G(\sum_{c}w(c),\sum_{c}w^2(c),...,\sum_{c}w^n(c))\)</span> 。</p>
+<p>特别地，让所有颜色的权值为 1，则为<em>Burnside</em>定理。</p>
+<p>一种常见的用法是让某些元素的权值为变量而非具体值，得到一个生成函数，通过生成函数的系数计算出钦定某种颜色染色次数的方案数。</p>
+<h2 id="_6">题单</h2>
+<p>待更新。</p>
+<h2 id="_7">参考资料</h2>
+<ul>
+<li>牛客算法竞赛课程数学专题课。</li>
+<li>《组合数学》</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -573,12 +864,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["hide_footer", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "navigation.expand", "search.share"], "search": "/assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["hide_footer", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "navigation.expand", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
-        <script src="/javascripts/mathjax.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
