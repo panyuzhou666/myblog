@@ -928,7 +928,7 @@
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>];
 </code></pre></div></li>
 <li>
-<p>预测错误时，需要能转发正确的地址给分支选择。主要正确地址放在指令的常数字段，我们需要修改执行阶段的加法来保留正确地址。
+<p>预测错误时，需要能转发正确的地址给分支选择。因为正确地址放在指令的常数字段，所以我们需要修改执行阶段的加法来保留正确地址。
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>word aluA = [
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w"> </span>       E_icode in { IRRMOVQ, IOPQ } : E_valA;
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gd">-       E_icode in { IIRMOVQ, IRMMOVQ, IMRMOVQ} : E_valC;</span>
