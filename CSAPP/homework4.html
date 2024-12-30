@@ -751,6 +751,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#457" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.57
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.57">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      简要题意：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      思路分析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -887,6 +920,39 @@
         
           <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      思路分析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#457" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.57
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.57">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      简要题意：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       思路分析：
     </span>
@@ -1102,6 +1168,39 @@
 </code></pre></div></p>
 </li>
 </ol>
+<h2 id="457">4.57</h2>
+<h3 id="_8">简要题意：</h3>
+<p>修改 <code>pipe-lf.hcl</code> 的 HCL 描述以实现加载转发。加载转发的定义见原题干。</p>
+<h3 id="_9">思路分析：</h3>
+<p>根据加载转发的定义，只有 <code>mrmovq</code> 或 <code>popq</code> 指令后接 <code>pushq</code> 或 <code>rmmovq</code> 才有可能使用加载转发来避免加载/使用冒险，而且要保证被赋值的寄存器在 <code>rmmovq</code> 中不用来寻址，只是单纯地写入内存。</p>
+<p>因为 <code>mrmovq</code> 用来寻址的寄存器是 rB ，所以使用加载转发后，加载/使用冒险的条件为 <code>E_icode in { IMRMOVQ, IPOPQ } &amp;&amp; (d_srcB == E_dstM || d_srcA == E_dstM &amp;&amp; !(D_icode in {IRMMOVQ, IPUSHQ}))</code>。</p>
+<p>代码很好写，只需要完成执行阶段的 e_valA 的逻辑，同时修改暂停和气泡处的加载/使用冒险条件即可。</p>
+<details>
+<summary>参考答案</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">word</span><span class="w"> </span><span class="n">e_valA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">        </span><span class="n">M_icode</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="n">IMRMOVQ</span><span class="p">,</span><span class="w"> </span><span class="n">IPUSHQ</span><span class="p">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">M_dstM</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E_srcA</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">m_valM</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">        </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">E_valA</span><span class="p">;</span><span class="w">  </span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="p">];</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="kt">bool</span><span class="w"> </span><span class="n">F_stall</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="n">E_icode</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IMRMOVQ</span><span class="p">,</span><span class="w"> </span><span class="n">IPOPQ</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">       </span><span class="p">(</span><span class="n">d_srcB</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E_dstM</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">d_srcA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E_dstM</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">D_icode</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="n">IRMMOVQ</span><span class="p">,</span><span class="w"> </span><span class="n">IPUSHQ</span><span class="p">}))</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">        </span><span class="n">IRET</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">D_icode</span><span class="p">,</span><span class="w"> </span><span class="n">E_icode</span><span class="p">,</span><span class="w"> </span><span class="n">M_icode</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">D_stall</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="n">E_icode</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IMRMOVQ</span><span class="p">,</span><span class="w"> </span><span class="n">IPOPQ</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">       </span><span class="p">(</span><span class="n">d_srcB</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E_dstM</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">d_srcA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E_dstM</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">D_icode</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="n">IRMMOVQ</span><span class="p">,</span><span class="w"> </span><span class="n">IPUSHQ</span><span class="p">}));</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="kt">bool</span><span class="w"> </span><span class="n">E_bubble</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">        </span><span class="p">(</span><span class="n">E_icode</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IJXX</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">e_Cnd</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">        </span><span class="n">E_icode</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IMRMOVQ</span><span class="p">,</span><span class="w"> </span><span class="n">IPOPQ</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">        </span><span class="p">(</span><span class="n">d_srcB</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E_dstM</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">d_srcA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E_dstM</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">D_icode</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="n">IRMMOVQ</span><span class="p">,</span><span class="w"> </span><span class="n">IPUSHQ</span><span class="p">}));</span>
+</code></pre></div>
+
+</details>
+
+<p><strong>注</strong>：因为 ret 指令需要使用寄存器 %rsp 寻址，所以加载转发不会对加载/使用冒险和 ret 的组合有影响。</p>
 
 
 
