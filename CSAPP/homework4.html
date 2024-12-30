@@ -718,6 +718,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#456" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.56
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.56">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      简要题意：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      思路分析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -821,6 +854,39 @@
         
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      思路分析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#456" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.56
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.56">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      简要题意：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       思路分析：
     </span>
@@ -973,6 +1039,69 @@
 </li>
 </ol>
 <p>PS：因为学艺不精，4.53 我前前后后 2 天花了 10 小时，而 4.55 只花了 30 分钟。</p>
+<h2 id="456">4.56</h2>
+<h3 id="_6">简要题意：</h3>
+<p>文件 <code>pipe-btfnt.hcl</code> 包含一份 PIPE 的 HCL 描述，要求修改分支预测逻辑，对于条件转移，当 <span class="arithmatex">\(ValC &lt; ValP\)</span> 时，预测为选择分支，当 <span class="arithmatex">\(ValC \geq ValP\)</span> 时，预测为不选择分支，
+而对无条件转移和 call ，预测为选择分支。</p>
+<h3 id="_7">思路分析：</h3>
+<p>需要修改的位置和上一题完全一致，只需要额外增加一些分类讨论即可。</p>
+<ol>
+<li>分支预测，额外增加一种情况。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>word f_predPC = [
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="gd">-       f_icode in { IJXX, ICALL } : f_valC;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="gi">+       f_icode == IJXX &amp;&amp; f_ifun == 0 : f_valC;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gi">+       f_icode == IJXX &amp;&amp; f_valC &lt; f_valP : f_valC;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="gi">+       f_icode == ICALL : f_valC;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w"> </span>       1 : f_valP;
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>];
+</code></pre></div></li>
+<li>
+<p>同上题完全一致。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>word aluA = [
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w"> </span>       E_icode in { IRRMOVQ, IOPQ } : E_valA;
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="gd">-       E_icode in { IIRMOVQ, IRMMOVQ, IMRMOVQ} : E_valC;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="gi">+       E_icode in { IIRMOVQ, IRMMOVQ, IMRMOVQ, IJXX } : E_valC;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w"> </span>       E_icode in { ICALL, IPUSHQ } : -8;
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w"> </span>       E_icode in { IRET, IPOPQ } : 8;
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>];
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>word aluB = [
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w"> </span>       E_icode in { IRMMOVQ, IMRMOVQ, IOPQ, ICALL,
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w"> </span>                    IPUSHQ, IRET, IPOPQ } : E_valB;
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="gd">-       E_icode in { IRRMOVQ, IIRMOVQ} : 0;</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="gi">+       E_icode in { IRRMOVQ, IIRMOVQ, IJXX } : 0;</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>];
+</code></pre></div></p>
+</li>
+<li>
+<p>预测错误选择指令时，分两类即可，注意 M_valE 中是 valC ，M_valA 中是 valP 。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>word f_pc = [
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="gd">-       M_icode == IJXX &amp;&amp; !M_Cnd : M_valA;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="gi">+       M_icode == IJXX &amp;&amp; !M_Cnd &amp;&amp; M_valE &lt; M_valA : M_valA;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="gi">+       M_icode == IJXX &amp;&amp; M_ifun != 0 &amp;&amp; M_Cnd &amp;&amp; M_valE &gt;= M_valA : M_valE;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w"> </span>       W_icode == IRET : W_valM;
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w"> </span>       1 : F_predPC;
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>];
+</code></pre></div></p>
+</li>
+<li>
+<p>修改预测错误的条件为 <code>E_icode == IJXX &amp;&amp; !e_Cnd &amp;&amp; E_valC &lt; E_valA || E_icode == IJXX &amp;&amp; E_ifun != 0 &amp;&amp; e_Cnd &amp;&amp; E_valC &gt;= E_valA</code> 即可。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>bool D_bubble =
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="gd">-        (E_icode == IJXX &amp;&amp; !e_Cnd) ||</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="gi">+         E_icode == IJXX &amp;&amp; !e_Cnd &amp;&amp; E_valC &lt; E_valA || </span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="gi">+         E_icode == IJXX &amp;&amp; E_ifun != 0 &amp;&amp; e_Cnd &amp;&amp; E_valC &gt;= E_valA ||</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w"> </span>       !(E_icode in { IMRMOVQ, IPOPQ } &amp;&amp; E_dstM in { d_srcA, d_srcB }) &amp;&amp;
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w"> </span>         IRET in { D_icode, E_icode, M_icode };
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>bool E_bubble =
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="gd">-       (E_icode == IJXX &amp;&amp; !e_Cnd) ||  </span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="gi">+         E_icode == IJXX &amp;&amp; !e_Cnd &amp;&amp; E_valC &lt; E_valA || </span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="gi">+         E_icode == IJXX &amp;&amp; E_ifun != 0 &amp;&amp; e_Cnd &amp;&amp; E_valC &gt;= E_valA ||</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w"> </span>        E_icode in { IMRMOVQ, IPOPQ } &amp;&amp;
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w"> </span>        E_dstM in { d_srcA, d_srcB};
+</code></pre></div></p>
+</li>
+</ol>
 
 
 
