@@ -685,6 +685,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#455" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.55
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.55">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      简要题意：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      思路分析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -767,6 +800,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#455" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.55
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.55">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      简要题意：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      思路分析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -792,7 +858,7 @@
 <h2 id="453">4.53</h2>
 <h3 id="_2">简要题意：</h3>
 <p>需要我们为基于PIPE - 的，不使用旁路逻辑的流水线处理器避免所有可能的控制和数据冒险。</p>
-<p>可以通过修改 pipe-nobypass.hcl 文件结尾处的流水线控制逻辑实现。 </p>
+<p>可以通过修改 <code>pipe-nobypass.hcl</code> 文件结尾处的流水线控制逻辑实现。 </p>
 <h3 id="_3">思路分析：</h3>
 <p>没有旁路逻辑的情况我们的冒险还是可以分为 3 类（其实就是添加了数据冒险无法通过旁路解决的情况） ：</p>
 <ol>
@@ -847,8 +913,66 @@
 </details>
 
 <p><strong>注</strong>：有一些暂停有没有都行，比如上面的第二种组合，或者是 ret 和预测错误组合，预测错误不会对取指阶段有操作，但另一种情况会暂停取指阶段，这时你暂停或者不暂停都可以，参考答案中选择了不暂停，代码好写一点。</p>
-<p>成功记录截图：</p>
-<p><img src="../资料/4_53.png" alt="Succeed" style="width:30%;"></p>
+<h2 id="455">4.55</h2>
+<h3 id="_4">简要题意：</h3>
+<p>文件 <code>pipe-nt.hcl</code> 包含一份 PIPE 的 HCL 描述，要求修改分支预测逻辑，使之对条件转移预测为不选择分支，而对无条件转移和 call 预测为选择分支。</p>
+<h3 id="_5">思路分析：</h3>
+<p>总体难度没有 4.53 大，对比原本的实现分析一下就会了，但是有很多细微之处都需要改动，接下来会一一分析。</p>
+<ol>
+<li>分支预测，按照要求直接修改即可。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>word f_predPC = [
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="gd">-       f_icode in { IJXX, ICALL } : f_valC;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gi">+       f_icode == IJXX &amp;&amp; f_ifun == 0 : f_valC;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="gi">+       f_icode in { ICALL } : f_valC;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w"> </span>       1 : f_valP;
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>];
+</code></pre></div></li>
+<li>
+<p>预测错误时，需要能转发正确的地址给分支选择。主要正确地址放在指令的常数字段，我们需要修改执行阶段的加法来保留正确地址。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>word aluA = [
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w"> </span>       E_icode in { IRRMOVQ, IOPQ } : E_valA;
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gd">-       E_icode in { IIRMOVQ, IRMMOVQ, IMRMOVQ} : E_valC;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="gi">+       E_icode in { IIRMOVQ, IRMMOVQ, IMRMOVQ, IJXX } : E_valC;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w"> </span>       E_icode in { ICALL, IPUSHQ } : -8;
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w"> </span>       E_icode in { IRET, IPOPQ } : 8;
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>];
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>word aluB = [
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w"> </span>       E_icode in { IRMMOVQ, IMRMOVQ, IOPQ, ICALL,
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w"> </span>                    IPUSHQ, IRET, IPOPQ } : E_valB;
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="gd">-       E_icode in { IRRMOVQ, IIRMOVQ} : 0;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="gi">+       E_icode in { IRRMOVQ, IIRMOVQ, IJXX } : 0;</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>];
+</code></pre></div>
+这样修改之后，正确指令地址就会存放在 M_valE 中。</p>
+</li>
+<li>
+<p>预测错误选择指令时，根据上面确定的正确指令地址修改即可，注意此时预测错误的条件是 <code>M_icode == IJXX &amp;&amp; M_ifun != 0 &amp;&amp; M_Cnd</code> 。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>word f_pc = [
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="gd">-       M_icode == IJXX &amp;&amp; !M_Cnd : M_valA;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="gi">+       M_icode == IJXX &amp;&amp; M_ifun != 0 &amp;&amp; M_Cnd : M_valE;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w"> </span>       W_icode == IRET : W_valM;
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w"> </span>       1 : F_predPC;
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>];
+</code></pre></div></p>
+</li>
+<li>
+<p>对于气泡和暂停，我们也只需要修改预测错误的条件即可。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>bool D_bubble =
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="gd">-        (E_icode == IJXX &amp;&amp; !e_Cnd) ||</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="gi">+        (E_icode == IJXX &amp;&amp; E_ifun != 0 &amp;&amp; e_Cnd) ||</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w"> </span>       !(E_icode in { IMRMOVQ, IPOPQ } &amp;&amp; E_dstM in { d_srcA, d_srcB }) &amp;&amp;
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w"> </span>         IRET in { D_icode, E_icode, M_icode };
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>bool E_bubble =
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="gd">-       (E_icode == IJXX &amp;&amp; !e_Cnd) ||  </span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="gi">+       (E_icode == IJXX &amp;&amp; E_ifun != 0 &amp;&amp; e_Cnd) ||</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w"> </span>        E_icode in { IMRMOVQ, IPOPQ } &amp;&amp;
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w"> </span>        E_dstM in { d_srcA, d_srcB};
+</code></pre></div></p>
+</li>
+</ol>
+<p>PS：因为学艺不精，4.53 我前前后后 2 天花了 10 小时，而 4.55 只花了 30 分钟。</p>
 
 
 
